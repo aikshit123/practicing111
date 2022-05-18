@@ -1,0 +1,146 @@
+Q1:DECIMAL TO BINARY
+int main() {
+	int n = 14, h, m = 1, l = 0;
+	while (n > 0) {
+		h = n % 2;
+		l = l + (h * m);
+		m = m * 10;
+		n = n / 2;
+	}
+	cout << l;
+}
+USING BItWISE OPERATORS
+int main() {
+	int n = 14, h, l = 0, m = 1;
+	while (n > 0) {
+		h = (n & 1);
+		l = l + (h * m);
+		m = m * 10;
+		n = n >> 1;
+	}
+	cout << l;
+	return 0;
+}
+USING STRING
+int main() {
+	int n = 14, h;
+	string s;
+	while (n > 0) {
+		h = n % 2;
+		if (h == 0) {
+			s.push_back('0');
+		}
+		else {
+			s.push_back('1');
+		}
+		n = n / 2;
+	}
+	reverse(s.begin(), s.end());
+	cout << s;
+	return 0;
+}
+DECIMAL TO BINARY
+int main() {
+	int n = 10;
+	int mask = (1 << 30);
+	bool isfound = false;
+	while (mask != 0) {
+		if (((mask & n) == 0) and isfound == false) {
+			mask = mask >> 1;
+		}
+		else {
+			isfound = true;
+			if ((mask & n) > 0) {
+				cout << 1;
+			}
+			else {
+				cout << 0;
+			}
+			mask = mask >> 1;
+		}
+	}
+	return 0;
+}
+BINARY TO DEECIMAL
+int main() {
+	int i = 0;
+	int dec = 0;
+	int n = 1110;
+	while (n != 0) {
+		int rem = n % 10;
+		dec = dec + rem * pow(2, i);
+		// cout << dec << endl;
+		i++;
+		n = n / 10;
+	}
+	cout << dec;
+	return 0;
+}
+UNIQUE NUMBER USING BITWISE OPERATOR(2N+2)
+int main() {
+	int a[] = {6, 7, 1, 6, 1, 10};
+	int n = sizeof(a) / sizeof(int);
+	int ans = 0;							
+	for (int i = 0; i < n; i++) {					
+		ans = ans ^ a[i];
+	}
+	int result = ans;
+	int pos = 0;
+	int indx = 0;
+	while (ans != 0) {
+		if (ans & 1 > 0) {
+			indx = 1 << pos;
+			break;
+		}
+		ans = ans >> 1;
+		pos++;
+	}
+	// cout << indx;
+	int un1 = 0;
+	for (int i = 0; i < n; i++) {
+		// cout << a[i] << endl;
+		if ((indx & a[i]) == 0) {
+			un1 = un1 ^ a[i];
+		}
+	}
+	cout << un1 << '\n';
+	result = result ^ un1;
+	cout << result;
+	return 0;
+}
+UNIQUE NUMBER USING BITWISE OPERATOR(3N+1)
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main() {
+	int arr[] = {3, 3, 3, 6, 6, 6, 40};
+	int n = sizeof (arr) / sizeof (int);
+	int cnt[64] = {0};
+	for (int i = 0; i < n; i++) {
+		int no = arr[i];
+		int pos = 0;
+		while (no > 0) {
+			if (no & 1 > 0) {
+				cnt[pos]++;
+			}
+			no = no >> 1;
+			pos++;
+		}
+	}
+	for (int i = 0; i < 64; i++) {
+		cnt[i] = cnt[i] % 3;
+	}
+	int h = 0;
+	int l = 1;
+	for (int i = 0; i < 64; i++) {
+		if (cnt[i] & 1 == 1) {
+			h = h + cnt[i] * l;
+		}
+		l = l << 1;
+	}
+	cout << h;
+	return 0;
+}
+
+
+
